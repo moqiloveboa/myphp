@@ -38,12 +38,12 @@ class Core
         $queryString  = empty($queryString) ? array() : $queryString;
         // 实例化控制器
         $controller = $controllerName . 'Controller';
-        $dispatch = new $controller($controllerName, $action);
         // 如果控制器存和动作存在，这调用并传入URL参数
         if ((int)method_exists($controller, $action)) {
+			$dispatch = new $controller($controllerName, $action);
             call_user_func_array(array($dispatch, $action), $queryString);
         } else {
-            exit($controller . "控制器不存在");
+            exit($controllerName . "控制器不存在");
         }
     }
     // 检测开发环境
@@ -93,8 +93,8 @@ class Core
     static function loadClass($class)
     {
         $frameworks = FRAME_PATH . $class . '.class.php';
-        $controllers = APP_PATH . 'application/controllers/' . $class . '.class.php';
-        $models = APP_PATH . 'application/models/' . $class . '.class.php';
+        $controllers = APP_PATH . 'application/controllers/' . $class . '.php';
+        $models = APP_PATH . 'application/models/' . $class . '.php';
         if (file_exists($frameworks)) {
             // 加载框架核心类
             include $frameworks;

@@ -22,7 +22,7 @@ class ItemController extends Controller
     public function view($id = null)
     {
         $item = (new ItemModel)->select($id);
- 
+
         $this->assign('title', '正在查看' . $item['item_name']);
         $this->assign('item', $item);
     }
